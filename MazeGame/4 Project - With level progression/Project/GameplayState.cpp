@@ -4,7 +4,7 @@
 #include <conio.h>
 #include <windows.h>
 #include <assert.h>
-
+#include "Sword.h"
 #include "Enemy.h"
 #include "Key.h"
 #include "Door.h"
@@ -156,8 +156,18 @@ void GameplayState::HandleCollision(int newPlayerX, int newPlayerY)
 			AudioManager::GetInstance()->PlayLoseLivesSound();
 			collidedEnemy->Remove();
 			m_player.SetPosition(newPlayerX, newPlayerY);
+			if (!m_player.HasSword())
+			{
+				
+				m_player.DecrementLives();
 
-			m_player.DecrementLives();
+			}
+			else
+			{
+				m_player.UseSword();
+			}
+
+			
 			if (m_player.GetLives() < 0)
 			{
 				//TODO: Go to game over screen
@@ -184,6 +194,21 @@ void GameplayState::HandleCollision(int newPlayerX, int newPlayerY)
 			{
 				m_player.PickupKey(collidedKey);
 				collidedKey->Remove();
+				m_player.SetPosition(newPlayerX, newPlayerY);
+				AudioManager::GetInstance()->PlayKeyPickupSound();
+			}
+			break;
+		}
+		case ActorType::Sword:
+		{
+			Sword* collidedSword = dynamic_cast<Sword*>(collidedActor);
+			assert(collidedSword);
+			cout << "collided with sword" << m_player.HasSword() << endl;
+
+			if (!m_player.HasSword())
+			{
+				m_player.PickUpSword(collidedSword);
+				collidedSword->Remove();
 				m_player.SetPosition(newPlayerX, newPlayerY);
 				AudioManager::GetInstance()->PlayKeyPickupSound();
 			}

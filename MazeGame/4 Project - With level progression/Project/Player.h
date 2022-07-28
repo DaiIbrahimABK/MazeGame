@@ -2,6 +2,7 @@
 #include "PlacableActor.h"
 
 class Key;
+class Sword;
 
 class Player : public PlacableActor
 {
@@ -9,10 +10,14 @@ public:
 	Player();
 
 	bool HasKey();
+	bool HasSword();
 	bool HasKey(ActorColor color);
 	void PickupKey(Key* key);
 	void UseKey();
+	void PickUpSword(Sword* sword);
+	void UseSword();
 	void DropKey();
+	Sword* GetSword() { return m_pSword; }
 	Key* GetKey() { return m_pCurrentKey; }
 
 	void AddMoney(int money) { m_money += money; }
@@ -25,6 +30,7 @@ public:
 	virtual void Draw() override;
 private:
 	Key* m_pCurrentKey;
+	Sword* m_pSword;
 	int m_money;
 	int m_lives;
 };
