@@ -223,3 +223,10 @@ PlacableActor* Level::UpdateActors(int x, int y)
 
 	return collidedActor;
 }
+void Level::UpdateActorsThreads()
+{
+	for (auto actor = m_pActors.begin(); actor != m_pActors.end(); ++actor)
+	{
+		(*actor)->Update(); 
+	}
+}

@@ -31,7 +31,9 @@ public:
 	virtual void Enter() override;
 	virtual bool Update(bool processInput = true) override;
 	virtual void Draw() override;
-
+	virtual void UpdateGame();
+protected:
+	virtual void ProcessInput();
 private:
 	void HandleCollision(int newPlayerX, int newPlayerY);
 	bool Load();

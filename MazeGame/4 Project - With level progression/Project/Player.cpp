@@ -23,6 +23,8 @@ bool Player::HasKey()
 {
 	return m_pCurrentKey != nullptr;
 }
+//this is called when player collides with enemy to check if they have a sword to determine if they lose lives
+
 bool Player::HasSword()
 {
 	return m_pSword != nullptr;	
